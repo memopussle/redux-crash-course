@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+## Documentation about Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### React-redux toolkit
 
-## Available Scripts
+```
+npx create-react-app my-app --template redux
+```
 
-In the project directory, you can run:
+### Existing app
 
-### `npm start`
+```
+Existing App
+npm install @reduxjs/toolkit react-redux
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### @reduxjs/toolkit
 
-### `npm test`
+- consists of few libraries
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   - redux (core library, state management)
+   - immer (allows to mutate state)
+   - redux-thunk (handles async actions)
+   - reselect (simplifies reducer functions)
 
-### `npm run build`
+### Extras
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   - redux devtools
+   - combine reducers
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### react-redux
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+connects our app to redux
 
-### `npm run eject`
+### Setup Store
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- create store.js: store is like a whole entire state for your components
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+import { configureStore } from '@reduxjs/toolkit';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export const store = configureStore({
+  reducer: {},
+});
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
 
-## Learn More
+### setup Provider
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- index.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+// import store and provider
+import { store } from './store';
+import { Provider } from 'react-redux';
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+```
